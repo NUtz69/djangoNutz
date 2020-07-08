@@ -1,0 +1,94 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+{% load icon %}
+<!-- Video-->
+{% load embed_video_tags %}
+
+
+<div class="jumbotron jumbotron-fluid"">
+  <div class="container">
+
+    <div id="card-header-grad" class="card-header">
+      <h1><a href="{% url 'post_list' %}">{{ post.title }}</a></h1>
+
+      <!-- published_date -->
+      {% if post.published_date  %}
+        {{ post.published_date }}
+      {% else %}
+        <!-- urls.py -> Post publish -->
+        <a href="{% url 'post_publish' pk=post.pk %}"><input type="submit" class="btn btn-success" value="Publish"></a>
+      {% endif %}
+
+      <!-- Auth -->
+      {% if user.is_authenticated %}
+        <!-- btn - Img post_edit -->
+        <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}">
+          {% icon "edit-3" class="css-class" height="20" width="20" %}
+        </a>
+        <!-- btn - Img post_remove -->
+        <a class="btn btn-default" href="{% url 'post_remove' pk=post.pk %}">
+          {% icon "x" class="css-class" height="20" width="20" %}
+        </a>
+      {% endif %}
+
+    </div>
+
+    <!-- Safe without hmtl tag-->
+    <div class="card-body">
+      {{ post.text|safe|linebreaksbr }}
+
+      <!-- Video -->
+      {% video post.video as my_video %}
+        <!-- URL: {{ my_video.url }} -->
+        <!-- Thumbnail: {{ my_video.thumbnail }} -->
+        <!-- Backend: {{ my_video.backend }} -->
+
+        {% video my_video "tiny" %}
+
+      {% endvideo %}
+    </div>
+
+
+    <div class="card-footer">
+      <!-- List comment  -->
+      {% for comment in post.comments.all %}
+      <br>
+        <!-- Model comment -->
+        {% if user.is_authenticated or comment.approved_comment %}
+          <!-- Inject -->
+          {{ comment.created_date }}
+
+          <!-- comment not approved -->
+          {% if not comment.approved_comment %}
+            <a class="btn btn-default" href="{% url 'comment_remove' pk=comment.pk %}">
+              {% icon "x" class="css-class" height="20" width="20" %}
+            </a>
+            <a class="btn btn-default" href="{% url 'comment_approve' pk=comment.pk %}">
+              {% icon "thumbs-up" class="css-class" height="20" width="20" %}
+            </a>
+          {% endif %}
+
+          <!-- Posted by -->
+          <p>{{ comment.text|safe|linebreaks }}</p>
+          <p>Posted by: {{ comment.author }}</p>
+
+          <hr>
+
+        {% endif %}
+
+        <!-- Empty -> for comment in post.comments.all -->
+        {% empty %}
+        <p>No comments !!!</p>
+
+      {% endfor %}
+
+    </div>
+
+    <div class="card-body">
+      <a href="{% url 'add_comment_to_post' pk=post.pk %}"><input type="submit" class="btn btn-success" value="Add comment"></a>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

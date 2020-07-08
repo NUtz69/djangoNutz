@@ -1,0 +1,25 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+
+<div class="jumbotron jumbotron-fluid"">
+  <div class="container">
+
+    <div id="card-header-grad" class="card-header">
+      <h1>Search Results</h1>
+    </div>
+
+    <div class="card-body">
+      <ul class="list-group">
+        {% for post in post_list %}
+          <li class="list-group-item">
+            <a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+
+{% endblock %}

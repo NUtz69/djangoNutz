@@ -1,0 +1,28 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+
+
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+
+    <div id="card-header-grad" class="card-header"><h1>New Comment</h1></div>
+
+    <form method="POST">
+      {% csrf_token %}
+      <div class="card-body">
+        {{ form.media }}
+        {{ form.as_p }}
+        <!-- <button type="submit" class="btn btn-outline-warning">Post comment</button> -->
+      </div>
+
+      <div class="card-footer">
+        <input type="submit" class="btn btn-success" value="Post comment">
+      </div>
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}
