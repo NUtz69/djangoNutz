@@ -1,0 +1,34 @@
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+{% bootstrap_messages %}
+
+<div class="container text-left">
+    <h4>Password Generate !</h4>
+
+    <!-- {{ password }} -->
+    <!-- <form action="password"> -->
+
+    <br>
+    <form action="{% url 'password' %}">
+        <select name="length" id="">
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9" selected="selected">9</option>
+        </select> Length
+
+        <br><br>
+        <input type="checkbox" name="uppercase"> Uppercase
+        <br>
+        <input type="checkbox" name="numbers"> Numbers
+        <br>
+        <input type="checkbox" name="special"> Special Characters   
+        
+        <br><br>
+        <input type="submit" value="Generate Password" class="btn btn-primary">
+    </form>
+
+    <br>
+    <a href="{% url 'about' %}" class="btn btn-warning">About</a>
+</div>
