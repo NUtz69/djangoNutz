@@ -10,8 +10,12 @@
 
 (myDjangoEnv) [nutz@centos-8-www my_base]$ git add .
 
+(myDjangoEnv) [nutz@centos-8-www my_base]$ git status
+
 (myDjangoEnv) [nutz@centos-8-www my_base]$ git commit . -m 'first'
 
 (myDjangoEnv) [nutz@centos-8-www my_base]$ git remote add origin https://github.com/NUtz69/djangoNutz.git
+
+(myDjangoEnv) [nutz@centos-8-www my_base]$ git pull https://github.com/NUtz69/djangoNutz.git
 
 (myDjangoEnv) [nutz@centos-8-www my_base]$ git push -u origin master
